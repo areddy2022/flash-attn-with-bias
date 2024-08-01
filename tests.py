@@ -71,7 +71,7 @@ if __name__ == "__main__":
     q = torch.randn(bs, seqlen, n_heads, headdim).to(device='cuda')
     k = torch.randn(bs, seqlen, n_heads, headdim).to(device='cuda')
     v = torch.randn(bs, seqlen, n_heads, headdim).to(device='cuda')
-    bias = torch.randn(bs, n_heads, seqlen, seqlen, headdim).to(device='cuda')
+    bias = torch.randn(bs, n_heads, seqlen, seqlen).to(device='cuda')
     mask = torch.randint(0, 2, (bs, seqlen)).to(device='cuda')
 
     output = _flash_attn(q, k, v, mask, bias)
