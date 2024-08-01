@@ -82,11 +82,11 @@ if not torch.cuda.is_available():
     if os.environ.get("TORCH_CUDA_ARCH_LIST", None) is None:
         _, bare_metal_major, bare_metal_minor = get_cuda_bare_metal_version(CUDA_HOME)
         if int(bare_metal_major) == 11:
-            os.environ["TORCH_CUDA_ARCH_LIST"] = "7.0;7.5;8.0"
+            os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
             if int(bare_metal_minor) > 0:
-                os.environ["TORCH_CUDA_ARCH_LIST"] = "7.0;7.5;8.0;8.6"
+                os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
         else:
-            os.environ["TORCH_CUDA_ARCH_LIST"] = "7.0;7.5"
+            os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 
 print("\n\ntorch.__version__  = {}\n\n".format(torch.__version__))
 TORCH_MAJOR = int(torch.__version__.split(".")[0])
@@ -108,8 +108,6 @@ cc_flag = []
 _, bare_metal_major, _ = get_cuda_bare_metal_version(CUDA_HOME)
 if int(bare_metal_major) < 11:
     raise RuntimeError("FlashAttention is only supported on CUDA 11")
-cc_flag.append("-gencode")
-cc_flag.append("arch=compute_75,code=sm_75")
 cc_flag.append("-gencode")
 cc_flag.append("arch=compute_80,code=sm_80")
 
